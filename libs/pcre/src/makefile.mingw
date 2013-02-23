@@ -1,0 +1,33 @@
+export INSTALL=/bin/install.exe -cpD
+export INSTALL_DATA=/bin/install.exe -cp
+export INSTALL_PROGRAM=/bin/install.exe -cpsD
+export ac_cv_prog_LN_S=cp -fp
+export cl_cv_prog_LN=cp -fp
+export LN_S=cp -fp
+export LN=cp -fp
+export CFLAGS= -DSTATIC -D__STATIC__ -Wl,--static -O2 -fnative-struct -fno-rtti -fno-exceptions -mcpu=pentium -march=i386
+export LDFLAGS= -Wl,--static 
+export LIBS= -liberty -lMsup -lMstubs
+
+.PHONY: all
+all:
+	./configure --prefix=c:/progra~1/pcre --enable-utf8 --disable-shared --host=i386-pc-mingw32 --build=i386-pc-mingw32 --target=i386-pc-mingw32
+	rm -f libtool.orig
+	rm -f makefile.orig
+
+	
+	if [ -e libtool ]; then \
+	cp -fp libtool libtool.orig; \
+	sed -e "s/~/!/" libtool.orig >libtool; \
+	fi
+
+	if ! [ -e makefile.orig ]; then \
+	cp -fp makefile makefile.orig; \
+	fi
+	sed -e "s,$(DESTDIR)/,$(DESTDIR)," makefile.orig >makefile
+
+	
+#	make all
+#	make check
+#	make install prefix=c:/temp/pcre
+                                 

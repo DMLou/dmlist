@@ -1,0 +1,22 @@
+CC = gcc
+CFLAGS = -O2 -fnative-struct -fno-rtti -fno-exceptions -mcpu=pentium -march=i386
+LDFLAGS= -Wl,-s
+
+# Rule to make compiled resource (Windows)
+%-rc.o: %.rc
+	windres -i $< -o $@
+
+dll: libpcre.dll.a pcregrep_d pcretest_d
+
+libpcre.dll.a:
+	cd .libs && a2dll libpcre.a libpcreposix.a -n pcre.dll
+
+pcregrep_d:     libpcre.dll.a pcregrep.c pcregrep-rc.o 
+		rm pcregrep.o
+		cp -fp pcregrep.exe pcregrep-static.exe
+		$(CC) $(CFLAGS) $(LDFLAGS) -o pcregrep pcregrep.c pcregrep-rc.o .libs/libpcre.dll.a
+
+pcretest_d:     libpcre.dll.a pcretest.c pcretest-rc.o 
+		rm pcretest.o
+		cp -fp pcretest.exe pcretest-static.exe
+		$(CC) $(CFLAGS) $(LDFLAGS) -o pcretest pcretest.c pcretest-rc.o .libs/libpcre.dll.a  

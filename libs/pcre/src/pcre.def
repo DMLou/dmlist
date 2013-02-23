@@ -1,0 +1,26 @@
+; i:\MINGW\BIN\dlltool.exe -Cn -a -z pcre.def --export-all-symbols get.o maketables.o pcre.o pcregrep.o pcreposix.o pcretest.o study.o
+EXPORTS
+	pcre_get_substring_list @ 1 ; 
+	isdirectory @ 2 ; 
+	main @ 3 ; 
+	opendirectory @ 4 ; 
+	pcre_compile @ 5 ; 
+	pcre_copy_substring @ 6 ; 
+	pcre_exec @ 7 ; 
+	pcre_free @ 8 DATA ; 
+	pcre_free_substring @ 9 ; 
+	pcre_free_substring_list @ 10 ; 
+	pcre_fullinfo @ 11 ; 
+	pcre_get_substring @ 12 ; 
+	closedirectory @ 13 ; 
+	pcre_info @ 14 ; 
+	pcre_maketables @ 15 ; 
+	pcre_malloc @ 16 DATA ; 
+	pcre_study @ 17 ; 
+	pcre_version @ 18 ; 
+	readdirectory @ 19 ; 
+	regcomp @ 20 ; 
+	regerror @ 21 ; 
+	regexec @ 22 ; 
+	regfree @ 23 ; 
+	utf82ord @ 24 ; 

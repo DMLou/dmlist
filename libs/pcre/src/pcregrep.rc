@@ -1,0 +1,21 @@
+#include <gnuversion.h>
+#define VER_FILEVERSION 3,8,0,0
+#define VER_FILEVERSION_STR "3.8"
+#define VER_LEGALCOPYRIGHT_STR "© 2001 University of Cambridge"
+//#define VER_COMMENT_STR  ""	 
+
+#define VER_FILEDESCRIPTION_STR "Pcre: grep with Perl-compatible regular-expressions"
+#define VER_INTERNALNAME_STR "pcregrep"
+#define VER_ORIGINALFILENAME_STR "pcregrep.exe"
+#define VER_WWW_STR "http://www.pcre.org"
+#define VER_COMPANYNAME_STR "Pcre"
+#define VER_LICENSE_STR "see: contrib/LICENSE"
+#define VER_LEGALTRADEMARKS_STR "Pcre®, pcregrep®"
+
+#define VER_PRODUCTNAME_STR "Pcre"
+#define VER_PRODUCTVERSION VER_FILEVERSION
+#define VER_PRODUCTVERSION_STR VER_FILEVERSION_STR
+
+#include <gnu.version>
+
+500 ICON MOVEABLE PURE LOADONCALL DISCARDABLE "pcre.ico"

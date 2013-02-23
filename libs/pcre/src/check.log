@@ -1,0 +1,15 @@
+Testing main functionality (Perl compatible)
+Testing API and error handling (not Perl compatible)
+Testing Perl 5.005 features (Perl 5.005 compatible)
+ 
+The three main tests all ran OK
+ 
+Cannot test locale-specific features - 'fr' locale not found,
+or the "locale" command is not available to check for it.
+ 
+Testing experimental, incomplete UTF8 support (Perl compatible)
+UTF8 test ran OK
+ 
+Testing API and internals for UTF8 support (not Perl compatible)
+UTF8 internals test ran OK
+ 
