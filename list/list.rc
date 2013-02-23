@@ -1,0 +1,575 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Rick Brewster"
+            VALUE "FileDescription", "ListXP"
+            VALUE "FileVersion", "1.0"
+            VALUE "InternalName", "ListXP"
+            VALUE "LegalCopyright", "Copyright © 2002, 2003 Rick Brewster"
+            VALUE "LegalTrademarks", "ListXP is a trademark of Rick Brewster"
+            VALUE "OriginalFilename", "ListXP.exe"
+            VALUE "ProductName", "ListXP"
+            VALUE "ProductVersion", "XP 1.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_LISTMENU MENU 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open ...\tCtrl+O",           IDM_FILE_OPEN
+        MENUITEM "Open in &New Window ...\tCtrl+N", IDM_FILE_OPEN_NEW
+        MENUITEM "&Preferences ...",            IDM_FILE_PREFERENCESV2
+        MENUITEM "&Edit ...\tCtrl+E",           IDM_FILE_EDIT
+        MENUITEM "&Reread file\tCtrl+Z",        IDM_FILE_RESET
+        MENUITEM "Close and E&xit\tCtrl+W",     IDM_FILE_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Copy\tCtrl+C",               IDM_EDIT_COPY
+        MENUITEM "&Paste",                      IDM_EDIT_PASTE
+    END
+    POPUP "&Search"
+    BEGIN
+        MENUITEM "&Find ... \tCtrl+F",          IDM_SEARCH_FIND
+        MENUITEM "&Cancel search\tEsc",         IDM_SEARCH_CANCELSEARCH
+        MENUITEM "Find &next\tF3",              IDM_SEARCH_FINDNEXT
+        MENUITEM "&Reset search to line 1\tr",  IDM_SEARCH_RESETSEARCH
+        MENUITEM "&Set search to the current line\tt", 
+                                                IDM_SEARCH_SETCURRENTLINE
+        MENUITEM "&Match case\tc",              IDM_SEARCH_MATCHCASE
+        MENUITEM SEPARATOR
+        MENUITEM "&Literal search\tl",          IDM_SEARCH_LITERALSEARCH
+        MENUITEM "&Boolean search\tb",          IDM_SEARCH_BOOLEANSEARCH
+        MENUITEM "&Regex search\tx",            IDM_SEARCH_REGEXSEARCH
+        MENUITEM SEPARATOR
+        MENUITEM "Search &down",                IDM_SEARCH_SEARCHDOWN
+        MENUITEM "Search &up",                  IDM_SEARCH_SEARCHUP
+        MENUITEM SEPARATOR
+        MENUITEM "&Animated searches\ta",       IDM_SEARCH_ANIMATEDSEARCHES
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "ASCII &junk filter\t*",       IDM_VIEW_ASCIIJUNKFILTER
+        MENUITEM "&Wrap long lines\tw",         IDM_VIEW_WRAPLINES
+        MENUITEM "&File information\tTab",      IDM_VIEW_FILEINFORMATION
+        MENUITEM "&Tailing\tCtrl+T",            IDM_VIEW_TAILING
+        POPUP "&Hex mode"
+        BEGIN
+            MENUITEM "Enabled\th",                  IDM_VIEW_HEXMODE_ENABLED
+            MENUITEM SEPARATOR
+            MENUITEM "Bytes",                       IDM_VIEW_HEXMODE_BYTES
+            MENUITEM "Words",                       IDM_VIEW_HEXMODE_WORDS
+            MENUITEM "DWords",                      IDM_VIEW_HEXMODE_DWORDS
+            MENUITEM "QWords",                      IDM_VIEW_HEXMODE_QWORDS
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Always on top\tCtrl+A",      IDM_VIEW_ALWAYSONTOP
+        MENUITEM "Transparenc&y\tCtrl+Y",       IDM_VIEW_TRANSPARENCY
+    END
+    POPUP "&Parsers"
+    BEGIN
+        MENUITEM "(Sentinel)",                  IDM_PARSERS_SENTINEL
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "Display &Help\tF1",           IDM_DISPLAY_HELP
+        MENUITEM "&About ...",                  IDM_HELP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RT_MANIFEST
+//
+
+1                       RT_MANIFEST             "default1.bin"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUT DIALOGEX 0, 0, 228, 215
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "About ListXP"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "&OK",ID_OK,89,194,50,14
+    LTEXT           "A\nB\nC\n.\nD\nE\nF\nG\n.\nH",IDC_LISTXPABOUTTEXT,7,36,
+                    214,155
+    CONTROL         119,IDC_STATIC,"Static",SS_BITMAP,0,0,228,33
+END
+
+IDD_PREFSV2 DIALOGEX 0, 0, 343, 223
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "ListXP Preferences"
+FONT 8, "MS Shell Dlg", 400, 0, 0x0
+BEGIN
+    LISTBOX         IDC_SECTION_PICKER,7,15,75,182,LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    PUSHBUTTON      "De&faults",ID_DEFAULTS,288,177,43,14
+    PUSHBUTTON      "OK",ID_OK,197,203,43,14
+    PUSHBUTTON      "Cancel",ID_CANCEL,246,203,43,14
+    PUSHBUTTON      "&Apply",ID_APPLY,294,203,43,14
+    LTEXT           "",IDC_SUBALIGN,88,15,246,161,NOT WS_VISIBLE | 
+                    WS_DISABLED
+    GROUPBOX        "Static",IDC_SECTION_NAME,86,3,251,194
+    LTEXT           "Category",IDC_STATIC,7,4,73,8
+END
+
+IDD_PREFS_PARSING DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Wrap long lines (word wrap)",IDC_WRAPTEXT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,2,106,10
+    EDITTEXT        IDC_TABSIZE,41,41,19,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "Tab size:",IDC_STATIC,7,43,30,8
+    CONTROL         "",IDC_TABSIZE_SPIN,"msctls_updown32",UDS_ARROWKEYS | 
+                    UDS_HOTTRACK,61,41,12,13
+    LTEXT           "characters",IDC_STATIC,77,43,35,8
+    CONTROL         "Auto-detect parsers based on file contents",
+                    IDC_DETECTPARSERS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    7,14,173,10
+    CONTROL         "Discard color and other formatting (mIRC log files)",
+                    IDC_IGNORE_PARSED_COLORS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,26,176,10
+END
+
+IDD_PREFS_CACHING DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Bypass Windows cache for files larger than:",
+                    IDC_ALLOWNONCACHED,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    7,70,153,10
+    EDITTEXT        IDC_NONCACHEDMINSIZE,167,68,40,13,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    EDITTEXT        IDC_FILECACHESIZE,167,17,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    EDITTEXT        IDC_CACHECHUNKS,167,34,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_NONCACHEDMINSIZE_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,207,68,11,13
+    LTEXT           "KB",IDC_STATIC,223,70,18,10
+    LTEXT           "File I/O cache size:",IDC_STATIC,20,19,139,8,0,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_FILECACHESIZE_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,207,17,12,13
+    LTEXT           "KB",IDC_STATIC,223,19,18,10
+    LTEXT           "String cache chunks:",IDC_STATIC,22,36,137,8,0,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_CACHECHUNKS_SPIN,"msctls_updown32",UDS_ARROWKEYS | 
+                    UDS_HOTTRACK,207,34,12,13
+    CONTROL         "Use prefetching",IDC_PREFETCHING,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,83,67,10
+    EDITTEXT        IDC_SEEKGRANULARITYLOG2,167,51,40,13,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "String cache chunk size:",IDC_STATIC,21,53,137,8,0,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_SEEKGRANULARITYLOG2_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,207,51,12,13
+    LTEXT           "lines",IDC_STATIC,223,53,18,10
+    EDITTEXT        IDC_BLOCKSIZELOG2,167,0,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "File I/O block size:",IDC_STATIC,100,2,59,8,0,
+                    WS_EX_RIGHT
+    CONTROL         "",IDC_BLOCKSIZELOG2_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,207,0,12,13
+    LTEXT           "bytes",IDC_STATIC,223,2,18,10
+    LTEXT           "A\nB\nC\nD\nE\nF\nG",IDC_CACHINGEXPLAIN,7,99,230,56
+END
+
+IDD_PREFS_HIVE DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Enable index hive:",IDC_HIVEENABLED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,2,74,10
+    PUSHBUTTON      "Browse ...",IDC_HIVEBROWSE,19,44,50,14
+    LTEXT           "Minimum file size:",IDC_STATIC,19,82,56,8
+    EDITTEXT        IDC_HIVEMINSIZEKB,82,80,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_HIVEMINSIZEKB_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,122,80,12,13
+    LTEXT           "KB",IDC_STATIC,137,82,18,10
+    LTEXT           "A\nB\nC\nD\nE\nF\nG",IDC_HIVEINFOTEXT,7,99,238,68
+    PUSHBUTTON      "Clear",IDC_HIVECLEAR,77,44,50,14
+    LTEXT           "Static",IDC_HIVESTATS,19,31,215,8
+    EDITTEXT        IDC_HIVEPATH,19,15,220,12,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Compress index files (via NTFS)",IDC_HIVE_COMPRESSION,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,19,64,117,10
+END
+
+IDD_PREFS_DISPLAY DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Transparent window:",IDC_TRANSPARENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,57,82,10
+    EDITTEXT        IDC_ALPHALEVEL,103,55,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_ALPHALEVEL_SPIN,"msctls_updown32",UDS_ARROWKEYS | 
+                    UDS_HOTTRACK,143,55,12,13
+    LTEXT           "alpha value (0..255)",IDC_ALPHASTATIC,159,57,70,8
+    COMBOBOX        IDC_FONTNAME,65,0,90,92,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Text font:",IDC_STATIC,7,2,49,8
+    COMBOBOX        IDC_COLORLIST,65,36,90,86,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    PUSHBUTTON      "Pick Color ...",IDC_PICKCOLOR,165,36,50,14
+    LTEXT           "Colors for:",IDC_STATIC,7,38,49,8
+    LTEXT           "Font size:",IDC_STATIC,7,19,49,8
+    EDITTEXT        IDC_FONTSIZE,103,18,40,13,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER,WS_EX_RIGHT
+    CONTROL         "",IDC_FONTSIZE_SPIN,"msctls_updown32",UDS_ARROWKEYS | 
+                    UDS_HOTTRACK,143,18,11,13
+    LTEXT           "A\nB\nC\nD\nE\nF\nG",IDC_DISPLAYINFO,7,123,232,32
+    CONTROL         "Always open maximized",IDC_ALWAYSMAXIMIZED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,69,91,10
+END
+
+IDD_PREFS_WINDOWS DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Explorer shell integration",IDC_SHELLINTEGRATION,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,0,95,10
+    CONTROL         134,IDC_RMBPIC,"Static",SS_BITMAP,174,0,65,53,
+                    WS_EX_STATICEDGE
+    LTEXT           "A\nB\nC\nD",IDC_RMBEXPLAIN,7,13,163,36
+    EDITTEXT        IDC_EDITPROGRAM,19,69,220,12,ES_AUTOHSCROLL | 
+                    ES_READONLY
+    LTEXT           "External editor:",IDC_STATIC,7,56,51,8
+    PUSHBUTTON      "Change ...",IDC_CHANGEEDITPROGRAM,19,85,50,14
+    LTEXT           "A\nB\nC\nD",IDC_EDITEXPLAIN,7,104,232,33
+END
+
+IDD_PREFS_TAILING DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Enable tailing without warning dialog",
+                    IDC_DISABLETAILWARNING,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,48,132,10
+    LTEXT           "A\nB\nC\nD\nE\nF\nG",IDC_TAILINGEXPLAIN,7,99,232,56
+    EDITTEXT        IDC_TAILING_INTERVAL,73,0,40,13,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "Update interval:",IDC_STATIC,7,2,53,8,0,WS_EX_RIGHT
+    CONTROL         "",IDC_TAILING_INTERVAL_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,113,0,11,13
+    COMBOBOX        IDC_TAILING_INTERVAL_UNIT,135,0,66,100,CBS_DROPDOWNLIST | 
+                    WS_VSCROLL | WS_TABSTOP
+    EDITTEXT        IDC_TAILING_BACKTRACK,73,17,40,13,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_NUMBER,WS_EX_RIGHT
+    LTEXT           "Backtrack distance:",IDC_STATIC,7,19,63,8,0,WS_EX_RIGHT
+    CONTROL         "",IDC_TAILING_BACKTRACK_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS | UDS_HOTTRACK,113,17,11,13
+    LTEXT           "KB",IDC_STATIC,129,19,9,8
+    CONTROL         "Force update, even if file may not have changed (IIS log files)",
+                    IDC_TAILING_FORCE_UPDATE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,36,215,10
+    CONTROL         "Jump to end of file after updating",
+                    IDC_TAILING_JUMP_TO_END,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,60,123,10
+END
+
+IDD_NOTICE DIALOGEX 0, 0, 222, 102
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Notice"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "OK",IDOK,85,81,50,14
+    CONTROL         "Do not show me this warning again",IDC_DISABLEME,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,63,127,10
+    LTEXT           "Static",IDC_TEXTBODY,7,7,208,54
+END
+
+IDD_PREFS_UPDATES DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "days",IDC_ALPHASTATIC,142,3,16,8
+    CONTROL         "Check for updates every",IDC_UPDATESENABLED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,2,95,10
+    LTEXT           "A\nB\nC\nD\nE\nF\nG",IDC_UPDATESEXPLAIN,7,99,232,55
+    PUSHBUTTON      "Check Now",IDC_UPDATENOW,7,31,50,14
+    EDITTEXT        IDC_UPDATESCHECKINTERVAL,103,0,23,13,ES_RIGHT | 
+                    ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_UPDATESCHECKINTERVAL_SPIN,"msctls_updown32",
+                    UDS_ARROWKEYS,127,0,10,13
+    LTEXT           "Static",IDC_UPDATESDAYSLEFT,7,17,202,8
+END
+
+IDD_UPDATE DIALOGEX 0, 0, 204, 135
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "An Update is Available"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "Go to Website",IDC_GOTOWEBSITE,31,115,64,14
+    PUSHBUTTON      "Remind Me Later",IDC_REMINDLATER,109,115,64,14
+    EDITTEXT        IDC_UPDATEMESSAGE,7,55,190,37,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | 
+                    WS_VSCROLL
+    CONTROL         "Disable automatic update notification",
+                    IDC_DISABLEUPDATES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    7,99,134,10
+    CTEXT           "v0.88",IDC_LATESTVERSION,85,37,34,11,SS_SUNKEN
+    LTEXT           "A newer version of ListXP is available.",IDC_STATIC,7,7,
+                    122,8
+    LTEXT           "Your version:",IDC_STATIC,28,23,49,8,0,WS_EX_RIGHT
+    LTEXT           "Latest version:",IDC_STATIC,28,38,49,8,0,WS_EX_RIGHT
+    CTEXT           "v0.87",IDC_YOURVERSION,85,22,34,11,SS_SUNKEN
+END
+
+IDD_PREFS_SEARCHING DIALOGEX 0, 0, 246, 161
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "Underline matching search terms",
+                    IDC_HIGHLIGHT_UNDERLINE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,2,120,10
+    LTEXT           "A\nB\nC\nD\nE\nF\nG\nH",IDC_SEARCHING_EXPLAIN,7,139,232,
+                    17
+    CONTROL         "Highlight entire matching line",
+                    IDC_HIGHLIGHT_ENTIRE_LINE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,14,107,10
+    CONTROL         "Highlight individual search terms",
+                    IDC_HIGHLIGHT_INDIVIDUAL_TERMS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,26,118,10
+    CONTROL         "Animated searches",IDC_ANIMATEDSEARCH,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,38,76,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 221
+        VERTGUIDE, 184
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 208
+    END
+
+    IDD_PREFSV2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 337
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 217
+    END
+
+    IDD_PREFS_PARSING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_PREFS_CACHING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_PREFS_HIVE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_PREFS_DISPLAY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_PREFS_WINDOWS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_PREFS_TAILING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_NOTICE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 215
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 95
+    END
+
+    IDD_PREFS_UPDATES, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+
+    IDD_UPDATE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 197
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 128
+    END
+
+    IDD_PREFS_SEARCHING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 239
+        BOTTOMMARGIN, 154
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_LISTACC ACCELERATORS 
+BEGIN
+    27,             ID_CANCEL,              ASCII,  NOINVERT
+    "C",            ID_CANCEL,              VIRTKEY, ALT, NOINVERT
+    "D",            ID_DEFAULTS,            VIRTKEY, ALT, NOINVERT
+    "O",            ID_OK,                  VIRTKEY, ALT, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LISTLOGO            BITMAP                  "list logo.bmp"
+IDB_RMBPIC              BITMAP                  "Right Click Menu.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_LISTICON            ICON                    "ListXP icon.ico"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

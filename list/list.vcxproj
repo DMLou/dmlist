@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F9AD79F9-4E24-4B8D-B666-6F1F5B705AA3}</ProjectGuid>
+    <RootNamespace>list</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRTDBG_MAP_ALLOC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <AssemblerOutput>All</AssemblerOutput>
+      <AdditionalOptions>/Zm200</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>..\libs\gdicons_d.lib;..\libs\pcre_d.lib;..\libs\C_APILib_sd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateMapFile>true</GenerateMapFile>
+      <MapExports>true</MapExports>
+      <SubSystem>Windows</SubSystem>
+      <TerminalServerAware>true</TerminalServerAware>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AboutBox.h" />
+    <ClInclude Include="AVLBTree.h" />
+    <ClInclude Include="BuildNumber.h" />
+    <ClInclude Include="CCmdQueue.h" />
+    <ClInclude Include="CFastFile.h" />
+    <ClInclude Include="CFileContext.h" />
+    <ClInclude Include="CFileLinesDB.h" />
+    <ClInclude Include="CHexLinesDB.h" />
+    <ClInclude Include="CJobManager.h" />
+    <ClInclude Include="CJobQueue.h" />
+    <ClInclude Include="CLinesDB.h" />
+    <ClInclude Include="CMutex.h" />
+    <ClInclude Include="CMutexRW.h" />
+    <ClInclude Include="CParser2.h" />
+    <ClInclude Include="CParserASCII.h" />
+    <ClInclude Include="CParserBinary.h" />
+    <ClInclude Include="CParserMIRC.h" />
+    <ClInclude Include="CParserUnicode.h" />
+    <ClInclude Include="CScannerThread.h" />
+    <ClInclude Include="CSearch.h" />
+    <ClInclude Include="CSearchBoolean.h" />
+    <ClInclude Include="CSearchKMP.h" />
+    <ClInclude Include="CSearchLiteral.h" />
+    <ClInclude Include="CSearchRegex.h" />
+    <ClInclude Include="CSignal.h" />
+    <ClInclude Include="CSignalPNI.h" />
+    <ClInclude Include="CThread.h" />
+    <ClInclude Include="CWorkerThread.h" />
+    <ClInclude Include="DynamicHeap.h" />
+    <ClInclude Include="guard.h" />
+    <ClInclude Include="HelpText.h" />
+    <ClInclude Include="Hive.h" />
+    <ClInclude Include="List.h" />
+    <ClInclude Include="ListDefaults.h" />
+    <ClInclude Include="ListMisc.h" />
+    <ClInclude Include="ListRegistry.h" />
+    <ClInclude Include="ListShellDLL.h" />
+    <ClInclude Include="ListTypes.h" />
+    <ClInclude Include="NoticeBox.h" />
+    <ClInclude Include="Pipe.h" />
+    <ClInclude Include="PreferencesV2.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Search.h" />
+    <ClInclude Include="Settings.h" />
+    <ClInclude Include="SmartLock.h" />
+    <ClInclude Include="StaticHeap.h" />
+    <ClInclude Include="TreeList.h" />
+    <ClInclude Include="Updates.h" />
+    <ClInclude Include="VarList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AboutBox.cpp" />
+    <ClCompile Include="add1.cpp" />
+    <ClCompile Include="BuildNumber.cpp" />
+    <ClCompile Include="CFastFile.cpp" />
+    <ClCompile Include="CFileContext.cpp" />
+    <ClCompile Include="CFileLinesDB.cpp" />
+    <ClCompile Include="CHexLinesDB.cpp" />
+    <ClCompile Include="CLinesDB.cpp" />
+    <ClCompile Include="CMutex.cpp" />
+    <ClCompile Include="CParser2.cpp" />
+    <ClCompile Include="CParserASCII.cpp" />
+    <ClCompile Include="CParserBinary.cpp" />
+    <ClCompile Include="CParserMIRC.cpp" />
+    <ClCompile Include="CParserUnicode.cpp" />
+    <ClCompile Include="CScannerThread.cpp" />
+    <ClCompile Include="CSearch.cpp" />
+    <ClCompile Include="CSearchBoolean.cpp" />
+    <ClCompile Include="CSearchKMP.cpp" />
+    <ClCompile Include="CSearchLiteral.cpp" />
+    <ClCompile Include="CSearchRegex.cpp" />
+    <ClCompile Include="CSignal.cpp" />
+    <ClCompile Include="CThread.cpp" />
+    <ClCompile Include="FirstTime.cpp" />
+    <ClCompile Include="guard.cpp" />
+    <ClCompile Include="Hive.cpp" />
+    <ClCompile Include="List.cpp" />
+    <ClCompile Include="ListDefaults.cpp" />
+    <ClCompile Include="ListMain.cpp" />
+    <ClCompile Include="ListMisc.cpp" />
+    <ClCompile Include="ListShellDLL.cpp" />
+    <ClCompile Include="NoticeBox.cpp" />
+    <ClCompile Include="Pipe.cpp" />
+    <ClCompile Include="Preferences.cpp" />
+    <ClCompile Include="PreferencesV2.cpp" />
+    <ClCompile Include="Search.cpp" />
+    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Updates.cpp" />
+    <ClCompile Include="VarList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="list logo.bmp" />
+    <Image Include="ListXP icon.ico" />
+    <Image Include="Right Click Menu.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default1.bin" />
+    <None Include="list.opensdf" />
+    <None Include="list.sdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="list.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="BuildNumber.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
