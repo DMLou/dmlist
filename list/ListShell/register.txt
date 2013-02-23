@@ -1,0 +1,8 @@
+Steps to register:
+
+HKEY_CLASSES_ROOT\CLSID\{GUID}\(Default) = "ListXP"
+HKEY_CLASSES_ROOT\CLSID\{GUID}\InProcServer32\(Default) = path to DLL
+HKEY_CLASSES_ROOT\CLSID\{GUID}\InProcServer32\ThreadingModel = "Apartment"
+HKEY_CLASSES_ROOT\ListXP\ShellEx\ContextMenuHandlers\(Default) = "{GUID}"
+HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ListXP\(Default) = "{GUID}"
+SHChangeNotify ()

@@ -1,0 +1,5 @@
+LIBRARY	ListShell
+EXPORTS
+DllCanUnloadNow
+DllGetClassObject
+
