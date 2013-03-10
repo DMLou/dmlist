@@ -272,9 +272,6 @@
     <ClCompile Include="Updates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VarList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="add1.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>

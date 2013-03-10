@@ -31,7 +31,7 @@ public:
         typedef DynamicHeap<Other> ReboundType;
     };
 
-    DynamicHeap (const int Maximum)
+    DynamicHeap (const int Maximum = 0)
     {
         guard
         {

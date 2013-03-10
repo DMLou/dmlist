@@ -12,22 +12,10 @@
 #define _TREELIST_H
 
 
-#include "AVLBTree.h"
+#include <map>
+#include <list>
+#include <memory>
 #include "StaticHeap.h"
-#include "DynamicHeap.h"
-
-
-template<class _KeyType, class _DataType>
-class TLNodeClass
-{
-public:
-    typedef _KeyType KeyType;
-    typedef _DataType DataType;
-
-    KeyType Next;
-    KeyType Prev;
-    DataType Data;
-};
 
 
 template<class Type>
@@ -44,38 +32,32 @@ public:
 template<class _KeyType, 
          class _DataType, 
          class _InvalidKey = TLIsNegativeOne<_KeyType>, 
-         class _AllocType = DynamicHeapType>
+         class _AllocType = std::allocator<void *> >
 class TreeList
 {
 public:
     typedef _KeyType KeyType;
     typedef _DataType DataType;
-    typedef TLNodeClass<KeyType, DataType> TLNodeType;
+    typedef std::pair<KeyType, DataType> TLNodeType;
     typedef _InvalidKey InvalidKey;
-    typedef typename _AllocType::Rebind<TLNodeType>::ReboundType AllocType;
-    typedef AVLBTree<KeyType, TLNodeType, AllocType> BTreeType;
+    typedef std::list<TLNodeType> ListType;
+    typedef std::map<KeyType, typename ListType::iterator, std::less<KeyType>, _AllocType> BTreeType;
     typedef TreeList<_KeyType, _DataType, _InvalidKey, _AllocType> MyType;
 
-    KeyType npos;
+    KeyType m_npos;
 
 protected:
-    BTreeType BTree;
-    KeyType Head;
-    KeyType Tail;
-    int MaxLength;
-    int Length;
+    BTreeType m_tree;
+    ListType m_list;
+    int m_maxLength;
 
 public:
     TreeList (int MaxLength = 2147483647) // not all allocators need a maximum # of nodes, but we need a value anyway
-    : BTree (MaxLength)
     {
         guard
         {
-            TreeList::MaxLength = MaxLength;
-            Length = 0;
-            npos = InvalidKey() ();
-            Head = npos;
-            Tail = npos;
+            m_maxLength = MaxLength;
+            m_npos = InvalidKey() ();
             return;
         } unguard;
     }
@@ -89,11 +71,7 @@ public:
             if (this == &Tree)
                 return;
 
-            MaxLength = Tree.MaxLength;
-            Length = 0;
-            npos = InvalidKey() ();
-            Head = npos;
-            Tail = npos;
+            m_maxLength = Tree.m_maxLength;
             CopyList (*this, Tree);
             return;
         } unguard;
@@ -124,18 +102,15 @@ public:
     {
         guard
         {
-            vector<DataType> Vec;
-            KeyType Node;
+            vector<DataType> vec;
+            ListType::iterator it;
 
-            Node = GetHeadKey ();
-
-            while (Node != npos)
+            for (it = m_list.begin(); it != m_list.end(); ++it)
             {
-                Vec.push_back (*Get (Node));
-                Node = GetNextKey (Node);
+                vec.push_back(*it);
             }
 
-            return (Vec);
+            return (vec);
         } unguard;
     }
 
@@ -144,18 +119,15 @@ public:
     {
         guard
         {
-            vector<KeyType> Vec;
-            KeyType Node;
+            vector<KeyType> vec;
+            BTreeType::iterator it;
 
-            Node = GetHeadKey ();
-            
-            while (Node != npos)
+            for (it = BTree.begin(); it != BTree.end(); ++it)
             {
-                Vec.push_back (Node);
-                Node = GetNextKey (Node);
+                vec.push_back(it->first);
             }
 
-            return (Vec);
+            return (vec);
         } unguard;
     }
 
@@ -164,20 +136,19 @@ public:
     {
         guard
         {
-            KeyType NodeKey;
-
             lhs.Clear ();
-            NodeKey = rhs.GetHeadKey ();
 
-            while (NodeKey != rhs.npos)
+            // As the key is stored in both the list and the tree, we can use that
+            // to make copying them much more efficient.
+            MyType::ListType::const_iterator rhsIt;
+            for (rhsIt = rhs.m_list.begin(); rhsIt != rhs.m_list.end(); ++rhsIt)
             {
-                MyType::DataType *NodeData;
-
-                NodeData = rhs.Get (NodeKey);
-                lhs.Push (NodeKey, *NodeData);
-                NodeKey = rhs.GetNextKey (NodeKey);
+                MyType::TLNodeType node = *rhsIt;
+                lhs.m_list.push_back(node);
+                MyType::ListType::iterator it = lhs.m_list.end();
+                --it;
+                lhs.m_tree.insert(std::pair<MyType::KeyType, typename MyType::ListType::iterator>(node.first, it));
             }
-
             return;
         } unguard;
     }
@@ -195,19 +166,26 @@ public:
             if (GetLength() != rhs.GetLength())
                 return (false);
 
-            lhsNode = GetHeadKey ();
-            rhsNode = rhs.GetHeadKey ();
+            MyType::BTreeType::iterator lhsIt, rhsIt;
+            lhsIt = BTree.begin();
+            rhsIt = rhs.BTree.begin();
 
-            while (lhsNode != npos  &&  rhsNode != npos)
+            while (lhsIt != BTree.end() && rhsIt != rhs.BTree.end())
             {
-                if (lhsNode != rhsNode)
-                    return (false);
+                // Check if keys match
+                if (lhsIt->first != rhsIt->first)
+                {
+                    return false;
+                }
 
-                if (*Get(lhsNode) != *rhs.Get(rhsNode))
-                    return (false);
+                // Check if values match
+                if (lhsIt->second != rhsIt->second)
+                {
+                    return false;
+                }
 
-                lhsNode = GetNextKey (lhsNode);
-                rhsNode = rhs.GetNextKey (rhsNode);
+                ++lhsIt;
+                ++rhsIt;
             }
 
             return (true);
@@ -226,7 +204,9 @@ public:
     {
         guard
         {
-            return (BTree.GetMemUsage());
+            int treeSize = BTree.size() * (sizeof(KeyType) + sizeof(ListType::iterator));
+            int listSize = m_list.size() * sizeof(TLNodeType);
+            return (treeSize + listSize);
         } unguard;
     }
 
@@ -234,7 +214,7 @@ public:
     {
         guard
         {
-            return (Length);
+            return m_list.size();
         } unguard;
     }
 
@@ -242,8 +222,10 @@ public:
     {
         guard
         {
-            if (Length == 0)
+            if (m_list.empty() && BTree.empty())
+            {
                 return (true);
+            }
 
             return (false);
         } unguard;
@@ -253,7 +235,7 @@ public:
     {
         guard
         {
-            if (Length >= MaxLength)
+            if (m_list.size() >= m_maxLength)
                 return (true);
 
             return (false);
@@ -274,23 +256,25 @@ public:
     {
         guard
         {
-            TLNodeType *DataPtr;
-            DataType DataTemp;
+            BTreeType::iterator found = m_tree.find(Key);
+            if (found == m_tree.end())
+            {
+                return false;
+            }
 
-            if (Tail == Key)
-                return (true);
+            // Check if the key points to the tail
+            if (found->second == (m_list.end() - 1))
+            {
+                return true;
+            }
 
-            DataPtr = BTree.SearchPtr (Key);
-
-            if (DataPtr == NULL)
-                return (false);
-
-            DataTemp = DataPtr->Data;
+            TLNodeType node = *(found->second);
+            DataType dataTemp = node.second;
 
             if (!Remove (Key))
                 return (false);
 
-            if (!Push (Key, DataTemp))
+            if (!Push (Key, dataTemp))
                 return (false);
 
             return (true);
@@ -302,15 +286,20 @@ public:
     {
         guard
         {
-            TLNodeType *DataPtr;
+            BTreeType::iterator found = m_tree.find(Key);
+            if (found == m_tree.end())
+            {
+                return false;
+            }
 
-            if (Tail == Key)
-                return (true);
+            // Check if the key points to the tail
+            if (found->second == (m_list.end())--)
+            {
+                return true;
+            }
 
-            DataPtr = BTree.SearchPtr (Key);
-
-            if (DataPtr == NULL)
-                return (false);
+            TLNodeType node = *(found->second);
+            DataType dataTemp = node.second;
 
             if (!Remove (Key))
                 return (false);
@@ -327,40 +316,28 @@ public:
     {
         guard
         {
-            TLNodeType E;
+            TLNodeType node(Key, Data);
 
             if (IsFull())
                 return (false);
 
             // 1) No items in queue. Create the queue pointing to this element.
-            if (Head == npos)
+            if (m_list.empty())
             {
-                Head = Key;
-                Tail = Key;
-                E.Next = npos;
-                E.Prev = npos;
-                E.Data = Data;
-                Length = 1;
-                BTree.Insert (Key, E);
+                m_list.push_back(node);
+                m_tree[Key] = m_list.begin(); // Rmember, only one on the list
             }
             else
             {
-                TLNodeType *P;
-                TLNodeType *TailPtr;
-
-                P = BTree.SearchPtr (Key);
+                BTreeType::iterator found = m_tree.find(Key);
 
                 // 2) This item is not part of the queue. Add it to the end of the queue.
-                if (P == NULL)
+                if (found == m_tree.end())
                 {
-                    TailPtr = BTree.SearchPtr (Tail);
-                    TailPtr->Next = Key;
-                    E.Prev = Tail;
-                    E.Next = npos;
-                    E.Data = Data;
-                    Tail = Key;
-                    BTree.Insert (Key, E);
-                    Length++;
+                    m_list.push_back(node);
+                    ListType::iterator it = m_list.end();
+                    --it;
+                    m_tree[Key] = it;
                 }
                 else
                 // 3) This item is already part of the queue. Remove it from the queue,
@@ -379,7 +356,9 @@ public:
     {
         guard
         {
-            return (Remove (GetHeadKey ()));
+            TLNodeType node = m_list.front();
+            node.pop_front();
+            m_tree.erase(node.first);
         } unguard;
     }
 
@@ -388,54 +367,22 @@ public:
     {
         guard
         {
-            TLNodeType *E;
-            TLNodeType *P;
-            TLNodeType *N;
-            TLNodeType *H;
-            TLNodeType *T;
-
             // 1. Queue is empty. Do nothing.
             if (IsEmpty())
                 return (false);
 
-            E = BTree.SearchPtr (Key);
+            BTreeType::iterator found = m_tree.find(Key);
 
             // 2. Item is not in the queue. Do nothing.
-            if (E == NULL)
+            if (found == m_tree.end())
                 return (false);
             else
-            // 3. This item is the head of the queue and/or this item is the only item in the queue
-            if (Head == Key)
             {
-                if (E->Next == npos) // item was the only item in the queue!
-                    Tail = npos; // queue is now empty!
-                else
-                {
-                    H = BTree.SearchPtr (E->Next);
-                    H->Prev = npos;
-                }
-
-                Head = E->Next;
-            }
-            else
-            // 4. This item is the tail of the queue with previous items in the queue
-            if (Tail == Key)
-            {
-                Tail = E->Prev;
-                T = BTree.SearchPtr (Tail);
-                T->Next = npos;
-            }
-            else
-            // 5. This item is in the middle of the queue somewhere.
-            {
-                P = BTree.SearchPtr (E->Prev);
-                P->Next = E->Next;
-                N = BTree.SearchPtr (E->Next);
-                N->Prev = E->Prev;
+                // 3. This item is somewhere in the queue. Delete it.
+                m_list.erase(found->second);
+                m_tree.erase(found);
             }
 
-            BTree.Remove (Key);
-            Length--;
             return (true);
         } unguard;
     }
@@ -444,7 +391,7 @@ public:
     {
         guard
         {
-            return (Head);
+            return m_list.front().first;
         } unguard;
     }
 
@@ -452,7 +399,7 @@ public:
     {
         guard
         {
-            return (Tail);
+            return m_list.back().first;
         } unguard;
     }
 
@@ -460,17 +407,24 @@ public:
     {
         guard
         {
-            TLNodeType *Node;
+            if (Key == m_npos)
+                return (m_npos);
 
-            if (Key == npos)
-                return (npos);
+            BTreeType::const_iterator found = m_tree.find(Key);
+            
+            if (found != m_tree.end())
+            {
+                ListType::iterator it = found->second;
+                ++it;
 
-            Node = BTree.SearchPtr (Key);
+                // If we don't go off the rails, we're good
+                if (it != m_list.end())
+                {
+                    return it->first;
+                }
+            }
 
-            if (Node != NULL)
-                return (Node->Next);
-
-            return (npos);
+            return (m_npos);
         } unguard;
     }
 
@@ -478,15 +432,22 @@ public:
     {
         guard
         {
-            TLNodeType *Node;
+            if (Key == m_npos)
+                return (m_npos);
 
-            if (Key == npos)
-                return (npos);
+            BTreeType::const_iterator found = m_tree.find(Key);
+            
+            if (found != m_tree.end())
+            {
+                ListType::iterator it = found->second;
 
-            Node = BTree.SearchPtr (Key);
-
-            if (Node != NULL)
-                return (Node->Prev);
+                // If we don't go off the rails, we're good
+                if (it != m_list.begin())
+                {
+                    --it;
+                    return it->first;
+                }
+            }
 
             return (npos);
         } unguard;
@@ -496,7 +457,7 @@ public:
     {
         guard
         {
-            return (Get (Head));
+            return &(m_list.front().second);
         } unguard;
     }
 
@@ -504,7 +465,7 @@ public:
     {
         guard
         {
-            return (Get (Qail));
+            return &(m_list.back().second);
         } unguard;
     }
 
@@ -512,14 +473,15 @@ public:
     {
         guard
         {
-            TLNodeType *Node;
+            TLNodeType Node;
 
-            Node = BTree.SearchPtr (Key);
+            BTreeType::const_iterator found = m_tree.find(Key);
+            if (found == m_tree.end())
+            {
+                return NULL;
+            }
 
-            if (Node != NULL)
-                return (&Node->Data);
-
-            return (NULL);
+            return &(found->second->second);
         } unguard;
     }
 
@@ -527,7 +489,7 @@ public:
     {
         guard
         {
-            return (Remove (Head));
+            return (Remove(m_list.front().first));
         } unguard;
     }
 
@@ -535,7 +497,7 @@ public:
     {
         guard
         {
-            return (Remove (Tail));
+            return (Remove(m_list.back().first));
         } unguard;
     }
 
@@ -543,8 +505,8 @@ public:
     {
         guard
         {
-            while (!IsEmpty())
-                Remove (Tail);
+            m_list.clear();
+            m_tree.clear();
 
             return;
         } unguard;

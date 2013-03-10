@@ -11,7 +11,7 @@
 #define _CFILECONTEXT_H
 
 
-#include "AVLBTree.h"
+#include <map>
 #include "DynamicHeap.h"
 
 
@@ -57,22 +57,22 @@ public:
 
 
 // Keeps track of which lines are marked, and then for each line stores a CLineMarking instance
-class CMarkedLines : public AVLBTree<uint64, CLineMarking>
+class CMarkedLines : public std::map<uint64, CLineMarking>
 {
 public:
-    bool AddLine (uint64 NewLine, CLineMarking &NewData)
+    void AddLine (uint64 NewLine, CLineMarking &NewData)
     {
         guard
         {
-            return (Insert (NewLine, NewData, false));
+            insert(std::pair<uint64, CLineMarking>(NewLine, NewData));
         } unguard;
     }
 
-    bool RemoveLine (uint64 OldLine)
+    void RemoveLine (uint64 OldLine)
     {
         guard
         {
-            return (Remove (OldLine));
+            erase(OldLine);
         } unguard;
     }
 
@@ -80,7 +80,8 @@ public:
     {
         guard
         {
-            return (SearchPtr (Line) != NULL);
+            iterator found = find(Line);
+            return (found != end());
         } unguard;
     }
 
@@ -88,7 +89,15 @@ public:
     {
         guard
         {
-            return (SearchPtr (Line));
+            iterator found = find(Line);
+            if (found == end())
+            {
+                return NULL;
+            }
+            else
+            {
+                return &(found->second);
+            }
         } unguard;
     }
 

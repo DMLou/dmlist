@@ -159,7 +159,6 @@
     <ClCompile Include="Search.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Updates.cpp" />
-    <ClCompile Include="VarList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="list logo.bmp" />
