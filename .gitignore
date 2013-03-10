@@ -1,2 +1,5 @@
 *.user
 Debug
+*.suo
+*.sdf
+*.opensdf
