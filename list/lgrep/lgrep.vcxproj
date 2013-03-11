@@ -50,6 +50,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>..\Debug\C_APILib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -66,7 +67,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\BuildNumber.cpp" />
+    <ClCompile Include="..\CSearch.cpp" />
+    <ClCompile Include="..\CSearchBoolean.cpp" />
+    <ClCompile Include="..\ListMisc.cpp" />
+    <ClCompile Include="..\Search.cpp" />
     <ClCompile Include="lgrep.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\CSearch.h" />
+    <ClInclude Include="..\CSearchBoolean.h" />
+    <ClInclude Include="..\ListMisc.h" />
+    <ClInclude Include="..\Search.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
