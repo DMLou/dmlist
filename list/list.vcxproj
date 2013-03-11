@@ -55,6 +55,7 @@
       <MapExports>true</MapExports>
       <SubSystem>Windows</SubSystem>
       <TerminalServerAware>true</TerminalServerAware>
+      <TypeLibraryResourceID>1</TypeLibraryResourceID>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
