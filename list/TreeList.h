@@ -52,7 +52,6 @@ public:
     typedef _DataType DataType;
     typedef TLNodeClass<KeyType, DataType> TLNodeType;
     typedef _InvalidKey InvalidKey;
-    //typedef typename _AllocType::Rebind<TLNodeType>::ReboundType AllocType;
     typedef std::map<KeyType, TLNodeType, std::less<KeyType>, _AllocType> BTreeType;
     typedef TreeList<_KeyType, _DataType, _InvalidKey, _AllocType> MyType;
 
