@@ -9,6 +9,7 @@
 #include "Updates.h"
 #include <iostream>
 #include <streambuf>
+#include <cstdint>
 
 #pragma warning(disable:4312)
 // debugging
@@ -1195,9 +1196,9 @@ void UpdateDaysLeftTextProc (PrefsContext *Context, int Sec, int Ctl, ControlEve
     guard
     {
         char Text[1024];
-        uint64 LastChecked;
-        uint64 Now;
-        sint64 DaysLeft;
+        uint64_t LastChecked;
+        uint64_t Now;
+        int64_t DaysLeft;
 
         prefslog.enter ("UpdateDaysLeftTextProc");
         switch (Event)
@@ -1211,7 +1212,7 @@ void UpdateDaysLeftTextProc (PrefsContext *Context, int Sec, int Ctl, ControlEve
                 LastChecked = Context->Settings.GetValUint64 ("UpdatesLastChecked");
                 DaysLeft = Context->Settings.GetValUint32 ("UpdatesCheckInterval") - TimeDiffDays (Now, LastChecked);
 
-                DaysLeft = max (DaysLeft, 0);
+                DaysLeft = std::max(DaysLeft, 0LL);
 
                 if (bool(Context->Settings.GetValUint32("UpdatesEnabled")))
                     sprintf (Text, "Updates will be checked for in approximately %I64d days.", DaysLeft);

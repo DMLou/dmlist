@@ -16,6 +16,7 @@
 
 
 #include <memory>
+#include <limits>
 #include "guard.h"
 
 
@@ -23,15 +24,21 @@ template<class Type>
 class DynamicHeap
 {
 public:
-    typedef Type DataType;
+    typedef Type value_type;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::size_t size_type;
+    typedef std::ptrdiff_t difference_type;
 
     template<class Other>
-    struct Rebind
+    struct rebind
     {
-        typedef DynamicHeap<Other> ReboundType;
+        typedef DynamicHeap<Other> other;
     };
 
-    DynamicHeap (const int Maximum = 0)
+    inline DynamicHeap (const int Maximum = 0)
     {
         guard
         {
@@ -40,7 +47,7 @@ public:
         } unguard;
     }
 
-    ~DynamicHeap ()
+    inline ~DynamicHeap ()
     {
         guard
         {
@@ -48,23 +55,18 @@ public:
         } unguard;
     }
 
-    int GetMemUsage (void) const
-    {
-        guard
-        {
-            return (ObjectCount * sizeof(DataType));
-        } unguard;
-    }
+    inline explicit DynamicHeap(DynamicHeap const&) { }
+    
+    template<typename Type>
+    inline explicit DynamicHeap(DynamicHeap<Type> const&) { }
 
-    int GetObjectCount (void) const
-    {
-        guard
-        {
-            return (ObjectCount);
-        } unguard;
-    }
+    // address
+    inline pointer address(reference r) { return &r; }
+    inline const_pointer address(const_reference r) { return &r; }
 
-    Type *Allocate (void)
+    // memory allocation
+    inline pointer allocate(size_type cnt,
+        typename std::allocator<void>::const_pointer = 0)
     {
         guard
         {
@@ -73,13 +75,45 @@ public:
         } unguard;
     }
 
-    void Free (Type *Ptr)
+    inline void deallocate(pointer Ptr, size_type)
     {
         guard
         {
             delete Ptr;
             ObjectCount--;
             return;
+        } unguard;
+    }
+
+    // size
+    inline size_type max_size() const
+    {
+#undef max
+        return std::numeric_limits<size_type>::max() / sizeof(Type);
+    }
+
+    // construction/destruction
+    inline void construct(pointer p, const Type& t) { new(p) Type(t); }
+
+    inline void destruct(pointer p) { p->~Type(); }
+
+    inline bool operator==(DynamicHeap const&) { return true; }
+    inline bool operator!=(DynamicHeap const& a) { return !operator==(a); }
+
+    // Original code
+    int GetMemUsage (void) const
+    {
+        guard
+        {
+            return (ObjectCount * sizeof(value_type));
+        } unguard;
+    }
+
+    int GetObjectCount (void) const
+    {
+        guard
+        {
+            return (ObjectCount);
         } unguard;
     }
 

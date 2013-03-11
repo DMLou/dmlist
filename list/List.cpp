@@ -1,4 +1,5 @@
 #include "List.h"
+#include <algorithm>
 #include <shlwapi.h>
 #include <Commdlg.h>
 #include <mmsystem.h>
@@ -28,6 +29,10 @@
 #define NORMALSLEEP 10
 #define REMOTESLEEP 100
 
+// Get rid of std::min and std::max polluting the namespace
+// This is a temporary hack for now. Will clean up better later.
+#undef min
+#undef max
 
 // Lookup table to avoid using tolower(), which is a function with
 // external linkage that can be replaced with this simple table lookup.
@@ -556,7 +561,7 @@ void DrawInfoLines (ListThreadContext *LC)
         {
             SpinTextLen = sprintf (SpinText, 
                                 "(%.1f%%) %c",
-                                min (100.0, max (0.0, LC->FileContext->NormalLinesDB->GetScanPercent())),
+                                std::min(100.0f, std::max(0.0f, LC->FileContext->NormalLinesDB->GetScanPercent())),
                                 (("/-\\|")[(GetTickCount() / 64) % 4])); // Oh gosh, most evil line of code ever :)
         }
 
@@ -1008,7 +1013,7 @@ void DrawTextBody (ListThreadContext *LC, int FirstLine, int LineCount)
                     // Set up clipping min/max: scrleft/right correspond to the left-most and
                     // right-most column indices on screen
                     scrleft = LC->FileContext->CurrentColumn;
-                    scrright = min (Text->Chars, scrleft + LC->Screen->GetMaxConsX());
+                    scrright = std::min(Text->Chars, static_cast<uint32_t>(scrleft + LC->Screen->GetMaxConsX()));
 
                     for (it = Extents.begin(); it != Extents.end(); ++it)
                     {
@@ -2502,8 +2507,8 @@ void HandleCommands (ListThreadContext *LC)
                         NewWidth = Info->NewWidth;
                         NewHeight = Info->NewHeight;
 
-                        NewWidth = max (80, NewWidth);
-                        NewHeight = max (10, NewHeight);
+                        NewWidth = std::max(80u, NewWidth);
+                        NewHeight = std::max(10u, NewHeight);
 
                         OldAR = LC->Screen->GetAutoRefresh ();
                         LC->Screen->SetAutoRefresh (FALSE);

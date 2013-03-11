@@ -25,12 +25,18 @@ template<class Type>
 class StaticHeap
 {
 public:
-    typedef Type DataType;
+    typedef Type value_type;
+    typedef value_type* pointer;
+    typedef const value_type* const_pointer;
+    typedef value_type& reference;
+    typedef const value_type& const_reference;
+    typedef std::size_t size_type;
+    typedef std::ptrdiff_t difference_type;
 
     template<class Other>
-    struct Rebind
+    struct rebind
     {
-        typedef StaticHeap<Other> ReboundType;
+        typedef StaticHeap<Other> other;
     };
 
     StaticHeap (const int Maximum)
@@ -39,7 +45,7 @@ public:
         {
             int i;
 
-            Heap = (DataType *) new uint8[sizeof(DataType) * Maximum];
+            Heap = (value_type *) new uint8[sizeof(value_type) * Maximum];
             FreeList = new int[Maximum];
             DestroyList = new bool[Maximum];
 
@@ -77,19 +83,18 @@ public:
         } unguard;
     }
 
-    int GetMemUsage (void) const
-    {
-        guard
-        {
-            int HeapSize;
+    inline explicit StaticHeap(StaticHeap const&) { }
+    
+    template<typename Type>
+    inline explicit StaticHeap(StaticHeap<Type> const&) { }
 
-            // Reported memory usage is rounded up to the next 4096 byte boundary (x86 page size = 4K)
-            HeapSize = (sizeof(bool) + sizeof(int) + sizeof(DataType)) * MaxObjects;
-            return (sizeof(*this) + HeapSize);
-        } unguard;
-    }
+    // address
+    inline pointer address(reference r) { return &r; }
+    inline const_pointer address(const_reference r) { return &r; }
 
-    Type *Allocate (void)
+    // memory allocation
+    inline pointer allocate(size_type cnt,
+        typename std::allocator<void>::const_pointer = 0)
     {
         guard
         {
@@ -110,7 +115,7 @@ public:
         } unguard;
     }
 
-    void Free (Type *Ptr)
+    void deallocate(pointer Ptr, size_type)
     {
         guard
         {
@@ -122,6 +127,34 @@ public:
             FreeListPush (indice);
 
             return;
+        } unguard;
+    }
+
+    // size
+    inline size_type max_size() const
+    {
+        return MaxObjects * sizeof(Type);
+    }
+
+    // construction/destruction
+    inline void construct(pointer p, const Type& t) { new(p) Type(t); }
+
+    inline void destruct(pointer p) { p->~Type(); }
+
+    inline bool operator==(StaticHeap const&) { return true; }
+    inline bool operator!=(StaticHeap const& a) { return !operator==(a); }
+
+    // Original code
+
+    int GetMemUsage (void) const
+    {
+        guard
+        {
+            int HeapSize;
+
+            // Reported memory usage is rounded up to the next 4096 byte boundary (x86 page size = 4K)
+            HeapSize = (sizeof(bool) + sizeof(int) + sizeof(value_type)) * MaxObjects;
+            return (sizeof(*this) + HeapSize);
         } unguard;
     }
 

@@ -493,7 +493,7 @@ void CParser2::EmitLine (bool NewLineIsDependent)
             if (nlen >= 0)
             {
                 CurFmt.Begin = nbegin;
-                CurFmt.Length = max (nlen, CurWord.Chars);
+                CurFmt.Length = std::max(static_cast<uint32_t>(nlen), CurWord.Chars);
             }
             else
             {

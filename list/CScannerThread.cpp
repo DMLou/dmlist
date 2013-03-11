@@ -255,7 +255,8 @@ bool CScannerThread::ThreadFunction (void)
 
                 LinesDB->AddSeekPoint (CurrentLine, SeekPos, TL->Dependent);
                 SeekPos += TL->Bytes;
-                LinesDB->SetLongestLineWidth (max (LinesDB->GetLongestLineWidth(), TL->Chars));
+                // TODO: A little worried about the cast below. May want to switch to boost::numeric_cast eventually
+                LinesDB->SetLongestLineWidth(std::max(LinesDB->GetLongestLineWidth(), static_cast<width_t>(TL->Chars)));
 
                 // Stats type information
                 Counter++;
