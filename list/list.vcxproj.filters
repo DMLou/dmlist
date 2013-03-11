@@ -257,9 +257,6 @@
     <ClCompile Include="Pipe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Preferences.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PreferencesV2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

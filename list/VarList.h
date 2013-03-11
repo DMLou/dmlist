@@ -1014,7 +1014,7 @@ public:
             Mutex.LockRead ();
             Key = Heap.GetHeadKey ();
 
-            while (Key != Heap.m_npos)
+            while (Key != Heap.npos)
             {
                 Data = Heap.Get (Key);
                 MyNamed Var (Key, *Data);

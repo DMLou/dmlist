@@ -154,7 +154,6 @@
     <ClCompile Include="ListShellDLL.cpp" />
     <ClCompile Include="NoticeBox.cpp" />
     <ClCompile Include="Pipe.cpp" />
-    <ClCompile Include="Preferences.cpp" />
     <ClCompile Include="PreferencesV2.cpp" />
     <ClCompile Include="Search.cpp" />
     <ClCompile Include="Settings.cpp" />

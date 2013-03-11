@@ -21,7 +21,6 @@
 #include <stack>
 #include <memory>
 
-
 template<class Type>
 class StaticHeap
 {
