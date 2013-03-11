@@ -66,7 +66,6 @@ protected:
 
 public:
     TreeList (int MaxLength = 2147483647) // not all allocators need a maximum # of nodes, but we need a value anyway
-    : BTree (MaxLength)
     {
         guard
         {

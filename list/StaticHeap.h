@@ -39,7 +39,7 @@ public:
         typedef StaticHeap<Other> other;
     };
 
-    StaticHeap (const int Maximum)
+    StaticHeap (const int Maximum = 10*1024*1024)
     {
         guard
         {
